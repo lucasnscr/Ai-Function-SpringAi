@@ -1,6 +1,6 @@
 # Spring AI Tool Calling and AI Agents
 
-Details the implementation of **Tool Calling** in Spring AI, focusing on the creation of AI agents that use tools to retrieve information and perform actions. Additionally, we evaluate whether some of the common workflow patterns in AI systems were used, such as **Chain Workflow**, **Parallelization Workflow**, **Routing Workflow**, **Orchestrator-Workers**, and **Evaluator-Optimizer**.
+Details the implementation of [Tool Calling](https://docs.spring.io/spring-ai/reference/api/tools.html) in Spring AI, focusing on the creation of AI agents that use tools to retrieve information and perform actions. Additionally, we evaluate whether some of the common workflow patterns in AI systems were used, such as **Chain Workflow**, **Parallelization Workflow**, **Routing Workflow**, **Orchestrator-Workers**, and **Evaluator-Optimizer**.
 
 ---
 
