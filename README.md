@@ -1,4 +1,4 @@
-# README: Spring AI Tool Calling and AI Agents
+# Spring AI Tool Calling and AI Agents
 
 This README details the implementation of **Tool Calling** in Spring AI, focusing on the creation of AI agents that use tools to retrieve information and perform actions. Additionally, we evaluate whether some of the common workflow patterns in AI systems were used, such as **Chain Workflow**, **Parallelization Workflow**, **Routing Workflow**, **Orchestrator-Workers**, and **Evaluator-Optimizer**.
 
