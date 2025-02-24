@@ -79,46 +79,31 @@ This pattern involves an Evaluator assessing the quality of an agent’s output 
 
 ![Evaluator-Optimizer Workflow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ng7tdgvzvk1ci522dytf.jpeg)
 
+## AI Agent Patterns Used
 
-## Implementing some of these patterns with Spring AI
+Patterns were used in the project:
 
-1. **Chain Workflow**
+### 1. **Chain Workflow**
+   - **Description**: Chaining prompts or tasks to improve accuracy.
+   - **Application in the Project**: The workflow involves retrieving user preferences and then fetching and analyzing news based on those preferences. This can be seen as a chain of tasks, where the output of one task (user preferences) is used as input for the next (news retrieval).
 
-- UserPreferencesService → Retrieves the user’s preferred topics.
-- GetNewsByUserPreferences → Fetches relevant news articles based on these topics.
-- NewsService → Analyzes and summarizes the news content.
+### 2. **Routing Workflow**
+   - **Description**: Intelligent routing of inputs to specialized flows.
+   - **Application in the Project**: The `GetNewsByUserPreferences` service routes the request to different API endpoints (crypto or stocks) based on the user's topic of interest. This is an example of **Routing Workflow**.
 
-2. **Parallelization Workflow**
+### 3. **Orchestrator-Workers**
+   - **Description**: A central AI (orchestrator) distributes tasks to specialized subprocesses (workers).
+   - **Application in the Project**: The `NewsService` acts as an orchestrator, coordinating news retrieval and analysis with the AI model. The AI model (OpenAiChatModel) functions as a specialized worker for text analysis.
 
-- The system fetches news from multiple sources simultaneously, reducing response latency.
+### 4. **Evaluator-Optimizer**
+   - **Description**: Use of LLMs for iterative evaluation and refinement.
+   - **Application in the Project**: The `extractNewsAndGiveOpinion` method uses an AI model to summarize and analyze news, which can be seen as a form of content evaluation and refinement.
 
-3. **Orchestrator-Workers**
-
-- The main AI agent (GetNewsByUserPreferences) acts as an orchestrator, directing worker agents such as:
-- AlphaClientNewsSentimentals (for news retrieval).
-- OpenAiChatModel (for summarization and analysis).
-
-5. Routing Workflow
-
-- Depending on whether the user prefers stocks or crypto, the system dynamically selects the appropriate API.
-
-# Ai Function Spring AI
-
-Details the implementation of [Tool Calling](https://docs.spring.io/spring-ai/reference/api/tools.html) in Spring AI, focusing on the creation of AI agents that use tools to retrieve information and perform actions. Additionally, we evaluate whether some of the common workflow patterns in AI systems were used, such as **Chain Workflow**, **Parallelization Workflow**, **Routing Workflow**, **Orchestrator-Workers**, and **Evaluator-Optimizer**.
-
----
-
-## Overview
+# Spring Ai and Tool Calling
 
 **Spring AI** is a framework that facilitates the integration of AI functionalities into Spring applications. One of its key features is **Tool Calling**, which allows AI models to interact with external APIs (tools) to extend their capabilities. These tools can be used for:
 
-1. **Information Retrieval**: Accessing external data, such as databases, web services, or search engines.
-2. **Action Execution**: Performing automated tasks, such as sending emails or creating records in databases.
-
-In this project, we implemented two main services:
-
-1. **UserPreferencesService**: Retrieves user preferences (e.g., topics of interest like "crypto" or "stocks").
-2. **GetNewsByUserPreferences**: Retrieves news based on user preferences and analyzes them using an AI model.
+Details the implementation of [Tool Calling](https://docs.spring.io/spring-ai/reference/api/tools.html) in Spring AI, focusing on the creation of AI agents that use tools to retrieve information and perform actions. Additionally, we evaluate whether some of the common workflow patterns in AI systems were used, such as **Chain Workflow**, **Parallelization Workflow**, **Routing Workflow**, **Orchestrator-Workers**, and **Evaluator-Optimizer**.
 
 ---
 
@@ -200,38 +185,7 @@ public class NewsService {
     }
 }
 ```
-
 ---
-
-## Workflow Patterns Used
-
-We evaluated whether the following workflow patterns were used in the project:
-
-### 1. **Chain Workflow**
-   - **Description**: Chaining prompts or tasks to improve accuracy.
-   - **Application in the Project**: The workflow involves retrieving user preferences and then fetching and analyzing news based on those preferences. This can be seen as a chain of tasks, where the output of one task (user preferences) is used as input for the next (news retrieval).
-
-### 2. **Routing Workflow**
-   - **Description**: Intelligent routing of inputs to specialized flows.
-   - **Application in the Project**: The `GetNewsByUserPreferences` service routes the request to different API endpoints (crypto or stocks) based on the user's topic of interest. This is an example of **Routing Workflow**.
-
-### 3. **Orchestrator-Workers**
-   - **Description**: A central AI (orchestrator) distributes tasks to specialized subprocesses (workers).
-   - **Application in the Project**: The `NewsService` acts as an orchestrator, coordinating news retrieval and analysis with the AI model. The AI model (OpenAiChatModel) functions as a specialized worker for text analysis.
-
-### 4. **Evaluator-Optimizer**
-   - **Description**: Use of LLMs for iterative evaluation and refinement.
-   - **Application in the Project**: The `extractNewsAndGiveOpinion` method uses an AI model to summarize and analyze news, which can be seen as a form of content evaluation and refinement.
-
-### 5. **Parallelization Workflow**
-   - **Description**: Parallel execution of tasks for greater efficiency.
-   - **Application in the Project**: There is no evidence of parallel execution in the provided code. News retrieval and analysis are performed sequentially.
-
----
-
-## Conclusion
-
-This project demonstrates how **Spring AI** can be used to create AI agents that interact with external tools to retrieve information and perform actions. The workflow patterns **Chain Workflow**, **Routing Workflow**, and **Orchestrator-Workers** were identified in the code, while **Parallelization Workflow** and **Evaluator-Optimizer** were not directly applied.
 
 ### Next Steps
 - Implement **Parallelization Workflow** to improve efficiency in news retrieval.
@@ -268,7 +222,6 @@ This project demonstrates how **Spring AI** can be used to create AI agents that
 
 4. **Testing**:
    - Use REST endpoints to test preference and news retrieval.
-
 ---
 
 ## Contribution
