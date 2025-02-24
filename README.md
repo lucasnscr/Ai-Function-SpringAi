@@ -1,4 +1,108 @@
-# Spring AI Tool Calling and AI Agents
+# AI Agents and Their Patterns: A Practical Perspective
+
+As AI-driven applications evolve, developers are increasingly leveraging large language model (LLM) agents to execute complex tasks efficiently. However, the most effective implementations rely not on overly complex frameworks but on simple, composable design patterns.
+
+This article explores the distinction between workflows and agents, identifies key patterns used in AI-driven systems, and examines how these concepts apply to a Spring AI implementation designed for intelligent news retrieval based on user preferences.
+
+## What Are AI Agents?
+
+AI agents are systems that use LLMs to process information, interact with tools, and perform actions. They can be classified into two broad categories:
+
+- Workflows: Structured sequences where LLMs and external tools follow predefined execution paths. These systems prioritize predictability and are ideal for well-defined, repeatable tasks.
+
+- Agents: More dynamic and autonomous systems where LLMs dictate their own processes, selecting tools and determining how to accomplish tasks. This allows for greater flexibility and adaptation.
+
+Choosing between these approaches depends on the problem domain—workflows excel in structured automation, while agents are preferable when decisions need to be made dynamically at scale.
+
+![Ai Agent Flow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ryed4nv20ly5wc7lzmge.gif)
+
+
+## Key Patterns in AI Agent Systems
+
+1. **Chain Workflow**
+
+A Chain Workflow organizes multiple steps in a linear sequence, where the output of one step feeds into the next. It ensures clarity and control while allowing for slight adaptability.
+
+**When to use:**
+
+- Tasks with clear sequential steps
+- When you want to trade latency for higher accuracy
+- When each step builds on the previous step's output
+
+![Chain Workflow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mf08z3fd28tnsjiah5o0.png)
+
+2. **Parallelization Workflow**
+
+This pattern involves executing multiple tasks simultaneously, increasing efficiency in data-intensive operations. It is useful when fetching or processing large amounts of information concurrently.
+
+**When to use:**
+
+- Processing large volumes of similar but independent items
+- Tasks requiring multiple independent perspectives
+- When processing time is critical and tasks are parallelizable
+
+![Parallelization Workflow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/febbnyphui29v8vv2r22.jpeg)
+
+3. **Routing Workflow**
+
+A Routing Workflow dynamically directs execution paths based on input conditions, allowing the system to adapt to different cases without predefined sequences.
+
+**When to use:**
+
+- Complex tasks with distinct categories of input
+- When different inputs require specialized processing
+- When classification can be handled accurately
+
+![Routing workflow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/klmzl6w50pr5f6egfb26.jpeg)
+
+4. **Orchestrator-Workers**
+
+Orchestrator AI delegates tasks to multiple specialized worker agents, each responsible for a distinct function (e.g., data retrieval, analysis, summarization).
+
+**When to use:**
+
+- Complex tasks where subtasks can't be predicted upfront
+- Tasks requiring different approaches or perspectives
+- Situations needing adaptive problem-solving
+
+![Orchestrator-Workers Workflow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/txvz9eqf9jw7pz3ovkin.jpeg)
+
+5. **Evaluator-Optimizer**
+
+This pattern involves an Evaluator assessing the quality of an agent’s output and an Optimizer refining future responses based on feedback, improving accuracy over time.
+
+**When to use:**
+
+- Clear evaluation criteria exist
+- Iterative refinement provides measurable value
+- Tasks benefit from multiple rounds of critique
+
+![Evaluator-Optimizer Workflow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ng7tdgvzvk1ci522dytf.jpeg)
+
+
+## Implementing some of these patterns with Spring AI
+
+1. **Chain Workflow**
+
+- UserPreferencesService → Retrieves the user’s preferred topics.
+- GetNewsByUserPreferences → Fetches relevant news articles based on these topics.
+- NewsService → Analyzes and summarizes the news content.
+
+2. **Parallelization Workflow**
+
+- The system fetches news from multiple sources simultaneously, reducing response latency.
+
+3. **Orchestrator-Workers**
+
+- The main AI agent (GetNewsByUserPreferences) acts as an orchestrator, directing worker agents such as:
+- AlphaClientNewsSentimentals (for news retrieval).
+- OpenAiChatModel (for summarization and analysis).
+
+5. Routing Workflow
+
+- Depending on whether the user prefers stocks or crypto, the system dynamically selects the appropriate API.
+
+# Ai Function Spring AI
 
 Details the implementation of [Tool Calling](https://docs.spring.io/spring-ai/reference/api/tools.html) in Spring AI, focusing on the creation of AI agents that use tools to retrieve information and perform actions. Additionally, we evaluate whether some of the common workflow patterns in AI systems were used, such as **Chain Workflow**, **Parallelization Workflow**, **Routing Workflow**, **Orchestrator-Workers**, and **Evaluator-Optimizer**.
 
