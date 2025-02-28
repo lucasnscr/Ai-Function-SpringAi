@@ -48,21 +48,18 @@ public class NewsController {
                 [
                  {
                     String title,
-                    String opinion,
                     String url,
-                    String source
+                    String timePublished,
+                    String summary,
+                    double overallSentimentScore,
+                    String overallSentimentLabel
                  }
                 ]
                 """
                         .formatted(userId)
         );
         OpenAiChatOptions aiChatOptions;
-        aiChatOptions = AgentUtil.createFunctionOptions(
-                // Order here doesn't matter
-                // It's just something you let LLM know what function they need to call
-                AiAgent.GET_LATEST_NEWS_BY_TOPIC_FUNCTION_NAME,
-                AiAgent.GET_USER_PREFERENCES_FUNCTION_NAME
-        );
+        aiChatOptions = AgentUtil.createFunctionOptions(AiAgent.GET_LATEST_NEWS_BY_TOPIC_FUNCTION_NAME, AiAgent.GET_USER_PREFERENCES_FUNCTION_NAME);
         ChatResponse response = this.chatModel.call(new Prompt(userMessage, aiChatOptions));
         logger.info("Response: {}", response);
         Generation generation = response.getResult();
